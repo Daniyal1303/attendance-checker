@@ -69,12 +69,12 @@ export default function Login() {
       <div className="hidden overflow-hidden bg-blue-600 lg:flex lg:flex-col lg:justify-between lg:p-12">
         <div className="max-w-md h-full flex flex-col  justify-center">
           <h2 className="text-4xl font-bold leading-tight text-white">
-            ticktock
+            AttenDO
           </h2>
           <p className="mt-4 text-base text-blue-100">
-            Introducing ticktock, our cutting-edge timesheet web application
+            Introducing AttenDO, our cutting-edge timesheet web application
             designed to revolutionize how you manage employee work hours. With
-            ticktock, you can effortlessly track and monitor employee attendance
+            AttenDO, you can effortlessly track and monitor employee attendance
             and productivity from anywhere, anytime, using any
             internet-connected device.
           </p>

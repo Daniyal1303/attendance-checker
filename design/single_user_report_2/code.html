@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Single User Report - AttenDO</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-secondary-container": "#646464",
+                        "on-primary-container": "#d4c7ff",
+                        "on-error-container": "#93000a",
+                        "on-background": "#151c27",
+                        "surface-container-low": "#f0f3ff",
+                        "primary-fixed": "#e7deff",
+                        "inverse-on-surface": "#ebf1ff",
+                        "outline": "#7a7489",
+                        "error-container": "#ffdad6",
+                        "on-secondary-fixed": "#1b1b1b",
+                        "surface": "#f9f9ff",
+                        "surface-variant": "#dce2f3",
+                        "outline-variant": "#cac3da",
+                        "on-tertiary-container": "#ceced1",
+                        "tertiary-fixed": "#e2e2e5",
+                        "tertiary-container": "#56585b",
+                        "surface-dim": "#d3daea",
+                        "secondary": "#5e5e5e",
+                        "surface-container-lowest": "#ffffff",
+                        "on-tertiary": "#ffffff",
+                        "tertiary": "#3f4143",
+                        "error": "#ba1a1a",
+                        "on-tertiary-fixed-variant": "#454749",
+                        "surface-container-high": "#e2e8f8",
+                        "secondary-container": "#e2e2e2",
+                        "on-secondary": "#ffffff",
+                        "on-primary": "#ffffff",
+                        "on-surface-variant": "#494457",
+                        "tertiary-fixed-dim": "#c6c6c9",
+                        "on-primary-fixed": "#1f0060",
+                        "primary-container": "#6000ff",
+                        "on-primary-fixed-variant": "#4d00d2",
+                        "secondary-fixed": "#e2e2e2",
+                        "primary": "#4700c1",
+                        "surface-container": "#e7eefe",
+                        "on-tertiary-fixed": "#1a1c1e",
+                        "on-error": "#ffffff",
+                        "surface-bright": "#f9f9ff",
+                        "inverse-surface": "#2a313d",
+                        "surface-container-highest": "#dce2f3",
+                        "secondary-fixed-dim": "#c6c6c6",
+                        "background": "#f9f9ff",
+                        "surface-tint": "#6723ff",
+                        "on-surface": "#151c27",
+                        "inverse-primary": "#ccbdff",
+                        "primary-fixed-dim": "#ccbdff",
+                        "on-secondary-fixed-variant": "#474747"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "gutter": "24px",
+                        "xs": "4px",
+                        "sm": "8px",
+                        "xl": "32px",
+                        "base": "4px",
+                        "md": "16px",
+                        "lg": "24px",
+                        "container-max": "1280px"
+                    },
+                    "fontFamily": {
+                        "label-md": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "body-md": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "headline-lg-mobile": ["Inter"],
+                        "display-lg": ["Inter"],
+                        "label-sm": ["Inter"]
+                    },
+                    "fontSize": {
+                        "label-md": ["14px", {"lineHeight": "20px", "fontWeight": "500"}],
+                        "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                        "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "700"}],
+                        "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "600"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; background-color: #f9f9ff; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .active-pill { font-variation-settings: 'FILL' 1; }
+        .scrollbar-hide::-webkit-scrollbar { display: none; }
+    </style>
+</head>
+<body class="bg-background text-on-background selection:bg-primary-container/20">
+<!-- Component: NavigationShell -->
+<header class="w-full sticky top-0 z-50 bg-surface border-b border-outline-variant" data-component="TopAppBar">
+<div class="flex items-center justify-between px-gutter h-16 w-full max-w-container-max mx-auto">
+<div class="flex items-center gap-md">
+<button aria-label="Menu" class="text-primary hover:bg-surface-container-low transition-colors p-sm rounded-full active:scale-95 duration-200">
+<span class="material-symbols-outlined">menu</span>
+</button>
+<h1 class="font-headline-md text-headline-md font-bold text-primary">Attendance Pro</h1>
+</div>
+<div class="flex items-center gap-md">
+<div class="relative group">
+<button aria-label="Language" class="text-primary hover:bg-surface-container-low transition-colors p-sm rounded-full active:scale-95 duration-200 flex items-center justify-center">
+<span class="material-symbols-outlined">language</span>
+</button>
+<div class="absolute right-0 mt-2 w-48 bg-surface border border-outline-variant rounded-xl shadow-lg py-2 hidden group-focus-within:block z-50">
+<a class="block px-4 py-2 font-label-md text-on-surface hover:bg-surface-container-low" href="#">English</a>
+<a class="block px-4 py-2 font-label-md text-on-surface hover:bg-surface-container-low" href="#">Spanish</a>
+<a class="block px-4 py-2 font-label-md text-on-surface hover:bg-surface-container-low" href="#">Hindi</a>
+</div>
+</div>
+<button aria-label="Profile" class="text-primary hover:bg-surface-container-low transition-colors p-sm rounded-full active:scale-95 duration-200">
+<span class="material-symbols-outlined">account_circle</span>
+</button>
+</div>
+</div>
+</header>
+<main class="max-w-container-max mx-auto px-gutter py-xl mb-32">
+<!-- Component: HeaderSection -->
+<section class="mb-xl grid grid-cols-1 md:grid-cols-2 gap-lg items-end" data-purpose="page-header">
+<div>
+<h2 class="font-headline-lg text-headline-lg text-on-surface mb-xs">Single User Report</h2>
+<p class="font-body-md text-body-md text-secondary">Analyze detailed attendance patterns and status logs for specific team members.</p>
+</div>
+<div class="w-full md:max-w-sm ml-auto">
+<label class="block font-label-md text-label-md text-on-surface mb-xs" for="user-search">Search Team Member</label>
+<div class="relative group" data-component="SearchInput">
+<span class="material-symbols-outlined absolute left-md top-1/2 -translate-y-1/2 text-outline group-focus-within:text-primary transition-colors">person_search</span>
+<input class="w-full pl-xl pr-md py-md bg-surface-container-lowest border border-outline-variant rounded-xl focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent font-body-md transition-all" id="user-search" placeholder="Enter name or ID..." type="text"/>
+</div>
+</div>
+</section>
+<!-- Component: FilterBentoGrid -->
+<section class="grid grid-cols-1 md:grid-cols-12 gap-lg mb-xl" data-component="FilterGrid">
+<!-- User Profile Card -->
+<div class="md:col-span-4 bg-surface-container-lowest border border-outline-variant rounded-xl p-lg flex items-center gap-md shadow-sm" data-component="UserProfileCard">
+<img alt="User Portrait" class="w-16 h-16 rounded-full object-cover ring-2 ring-primary/10" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBvw1kjl8AX8jmqn9eQGr3JYylzzBll20vkQjFQ8P5pc-W3ng2Iz2Tmokr5ENJYdbErxxp6DxIK_isrtr1GayBP61UuhncCmAtOXW10EuCE_cAuyRHnKP-kVONnbyYZuhPs-Umg7bqy9PxtBKo8DRXTDdMUrThn7wteB9drHlCdXyHmTSs0oYfEGxr9d-hMAC8rJilJW2CtUdZe9x4ePx1aTRWw7iDX7mI66Axw3Q3Mobzv-KpHVvF3mOz6zl0UOXKM4Y-AdEuXRXs"/>
+<div>
+<h3 class="font-headline-md text-headline-md text-on-surface leading-tight">Alex Rivera</h3>
+<p class="font-label-sm text-label-sm text-secondary">Senior Product Designer • ID: 8842</p>
+</div>
+</div>
+<!-- Date Range Component -->
+<div class="md:col-span-8 bg-surface-container-lowest border border-outline-variant rounded-xl p-lg shadow-sm" data-component="DateRangePicker">
+<div class="flex flex-col sm:flex-row items-center gap-md">
+<div class="w-full flex-1">
+<label class="block font-label-sm text-label-sm text-outline mb-xs uppercase tracking-wider">Start Date</label>
+<div class="relative">
+<input class="w-full p-md bg-surface border border-outline-variant rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all cursor-pointer" data-purpose="start-date-input" type="date" value="2023-10-01"/>
+</div>
+</div>
+<div class="text-outline hidden sm:flex items-center justify-center mt-5">
+<span class="material-symbols-outlined">arrow_forward</span>
+</div>
+<div class="w-full flex-1">
+<label class="block font-label-sm text-label-sm text-outline mb-xs uppercase tracking-wider">End Date</label>
+<div class="relative">
+<input class="w-full p-md bg-surface border border-outline-variant rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all cursor-pointer" data-purpose="end-date-input" type="date" value="2023-10-31"/>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Component: QuickStatsBar -->
+<section class="flex flex-wrap gap-md mb-lg overflow-x-auto pb-2 scrollbar-hide" data-component="StatsRow">
+<div class="flex-shrink-0 px-lg py-sm bg-primary-container/10 border border-primary-container/20 rounded-full flex items-center gap-sm">
+<span class="material-symbols-outlined text-primary text-[20px]" style="font-variation-settings: 'FILL' 1;">calendar_today</span>
+<span class="font-label-md text-label-md text-primary whitespace-nowrap">22 Working Days</span>
+</div>
+<div class="flex-shrink-0 px-lg py-sm bg-green-50 border border-green-200 rounded-full flex items-center gap-sm">
+<span class="material-symbols-outlined text-green-700 text-[20px]" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<span class="font-label-md text-label-md text-green-700 whitespace-nowrap">19 Present</span>
+</div>
+<div class="flex-shrink-0 px-lg py-sm bg-red-50 border border-red-200 rounded-full flex items-center gap-sm">
+<span class="material-symbols-outlined text-red-700 text-[20px]" style="font-variation-settings: 'FILL' 1;">error</span>
+<span class="font-label-md text-label-md text-red-700 whitespace-nowrap">2 Absent</span>
+</div>
+<div class="flex-shrink-0 px-lg py-sm bg-orange-50 border border-orange-200 rounded-full flex items-center gap-sm">
+<span class="material-symbols-outlined text-orange-700 text-[20px]" style="font-variation-settings: 'FILL' 1;">timer</span>
+<span class="font-label-md text-label-md text-orange-700 whitespace-nowrap">1 Late</span>
+</div>
+</section>
+<!-- Component: AttendanceDataTable -->
+<section class="bg-surface-container-lowest border border-outline-variant rounded-xl overflow-hidden shadow-sm" data-component="DataTable">
+<div class="overflow-x-auto">
+<table class="w-full border-collapse">
+<thead>
+<tr class="bg-surface border-b border-outline-variant">
+<th class="px-lg py-md text-left font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Date</th>
+<th class="px-lg py-md text-left font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Check In</th>
+<th class="px-lg py-md text-left font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Check Out</th>
+<th class="px-lg py-md text-left font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Total Hours</th>
+<th class="px-lg py-md text-left font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Status</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant/50">
+<!-- Row: Present -->
+<tr class="hover:bg-surface-container-low transition-colors group" data-row-status="present">
+<td class="px-lg py-md font-body-md text-on-surface">Oct 24, 2023</td>
+<td class="px-lg py-md font-body-md text-on-surface">08:55 AM</td>
+<td class="px-lg py-md font-body-md text-on-surface">05:30 PM</td>
+<td class="px-lg py-md font-body-md text-on-surface">8h 35m</td>
+<td class="px-lg py-md">
+<span class="px-sm py-xs bg-green-50 text-green-700 text-label-sm rounded border border-green-100">Present</span>
+</td>
+</tr>
+<!-- Row: Late -->
+<tr class="hover:bg-surface-container-low transition-colors group" data-row-status="late">
+<td class="px-lg py-md font-body-md text-on-surface">Oct 23, 2023</td>
+<td class="px-lg py-md font-body-md text-on-surface">09:15 AM</td>
+<td class="px-lg py-md font-body-md text-on-surface">06:00 PM</td>
+<td class="px-lg py-md font-body-md text-on-surface">8h 45m</td>
+<td class="px-lg py-md">
+<span class="px-sm py-xs bg-orange-50 text-orange-700 text-label-sm rounded border border-orange-100">Late In</span>
+</td>
+</tr>
+<!-- Row: Absent -->
+<tr class="hover:bg-surface-container-low transition-colors group" data-row-status="absent">
+<td class="px-lg py-md font-body-md text-on-surface">Oct 22, 2023</td>
+<td class="px-lg py-md font-body-md text-outline">—</td>
+<td class="px-lg py-md font-body-md text-outline">—</td>
+<td class="px-lg py-md font-body-md text-outline">0h 0m</td>
+<td class="px-lg py-md">
+<span class="px-sm py-xs bg-red-50 text-red-700 text-label-sm rounded border border-red-100">Absent</span>
+</td>
+</tr>
+<!-- Row: Present -->
+<tr class="hover:bg-surface-container-low transition-colors group" data-row-status="present">
+<td class="px-lg py-md font-body-md text-on-surface">Oct 21, 2023</td>
+<td class="px-lg py-md font-body-md text-on-surface">08:45 AM</td>
+<td class="px-lg py-md font-body-md text-on-surface">05:15 PM</td>
+<td class="px-lg py-md font-body-md text-on-surface">8h 30m</td>
+<td class="px-lg py-md">
+<span class="px-sm py-xs bg-green-50 text-green-700 text-label-sm rounded border border-green-100">Present</span>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="p-lg bg-surface border-t border-outline-variant flex justify-center">
+<button class="text-primary font-label-md flex items-center gap-xs hover:underline transition-all" data-purpose="load-more">
+                View full history <span class="material-symbols-outlined text-sm">expand_more</span>
+</button>
+</div>
+</section>
+</main>
+<!-- Component: FloatingActionBar -->
+<div class="fixed bottom-0 left-0 right-0 bg-surface border-t border-outline-variant p-md z-40 shadow-[0_-4px_12px_rgba(0,0,0,0.08)]" data-component="ActionToolbar">
+<div class="max-w-container-max mx-auto flex items-center justify-between gap-md">
+<div class="hidden md:flex flex-col">
+<p class="font-label-md text-on-surface">Export report for Alex Rivera</p>
+<p class="font-label-sm text-secondary">Oct 1 - Oct 31, 2023</p>
+</div>
+<div class="flex items-center gap-md w-full md:w-auto">
+<button class="flex-1 md:flex-none flex items-center justify-center gap-sm px-xl py-md bg-surface border border-outline-variant text-on-surface font-label-md rounded-xl hover:bg-surface-container-high transition-all active:scale-[0.98]" data-purpose="export-csv">
+<span class="material-symbols-outlined text-[20px]">share</span>
+                CSV
+            </button>
+<button class="flex-1 md:flex-none flex items-center justify-center gap-sm px-xl py-md bg-primary-container text-on-primary-container font-label-md rounded-xl hover:bg-primary transition-all active:scale-[0.98] shadow-md shadow-primary-container/20" data-purpose="download-pdf">
+<span class="material-symbols-outlined text-[20px]">download</span>
+                Download PDF
+            </button>
+</div>
+</div>
+</div>
+<!-- Component: MobileNav -->
+<nav class="md:hidden fixed bottom-0 w-full z-50 bg-surface border-t border-outline-variant flex justify-around items-center h-16 px-sm pb-safe shadow-xl" data-component="MobileTabs">
+<a aria-label="Users Tab" class="flex flex-col items-center justify-center text-secondary hover:text-primary transition-colors flex-1" href="#">
+<span class="material-symbols-outlined">group</span>
+<span class="font-label-sm text-[10px]">Users</span>
+</a>
+<a aria-label="Mark Tab" class="flex flex-col items-center justify-center text-secondary hover:text-primary transition-colors flex-1" href="#">
+<span class="material-symbols-outlined">how_to_reg</span>
+<span class="font-label-sm text-[10px]">Mark</span>
+</a>
+<a aria-label="Language Tab" class="flex flex-col items-center justify-center text-secondary hover:text-primary transition-colors flex-1" href="#">
+<span class="material-symbols-outlined">language</span>
+<span class="font-label-sm text-[10px]">Lang</span>
+</a>
+<a aria-label="Reports Tab" class="flex flex-col items-center justify-center text-primary font-bold flex-1" href="#">
+<span class="material-symbols-outlined active-pill">assessment</span>
+<span class="font-label-sm text-[10px]">Reports</span>
+</a>
+<a aria-label="Profile Tab" class="flex flex-col items-center justify-center text-secondary hover:text-primary transition-colors flex-1" href="#">
+<span class="material-symbols-outlined">person</span>
+<span class="font-label-sm text-[10px]">Profile</span>
+</a>
+</nav>
+<script>
+    // Search Interaction
+    const searchInput = document.getElementById('user-search');
+    searchInput?.addEventListener('input', (e) => {
+        const val = e.target.value;
+        if(val.length > 2) {
+            console.log(`[Component:SearchInput] Query: ${val}`);
+        }
+    });
+
+    // Date Picker Sync (Placeholder for logic)
+    const dateInputs = document.querySelectorAll('[data-purpose*="-date-input"]');
+    dateInputs.forEach(input => {
+        input.addEventListener('change', (e) => {
+            console.log(`[Component:DateRangePicker] Updated ${e.target.dataset.purpose}: ${e.target.value}`);
+        });
+    });
+</script>
+</body></html>

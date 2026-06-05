@@ -1,0 +1,71 @@
+{
+  "common": {
+    "appName": "AttenDO",
+    "save": "Save",
+    "cancel": "Cancel",
+    "search": "Search",
+    "loading": "Loading…",
+    "noResults": "No results",
+    "signOut": "Sign out",
+    "actions": "Actions",
+    "all": "All",
+    "from": "From",
+    "to": "To",
+    "date": "Date",
+    "status": "Status",
+    "language": "Language"
+  },
+  "nav": {
+    "users": "Users",
+    "attendance": "Attendance",
+    "reports": "Reports"
+  },
+  "login": {
+    "title": "Welcome back",
+    "subtitle": "Sign in to manage attendance",
+    "email": "Email",
+    "password": "Password",
+    "rememberMe": "Remember me",
+    "signIn": "Sign in",
+    "brandDescription": "Register users, mark attendance, and share reports — fast, clear, and from any device."
+  },
+  "users": {
+    "title": "Users",
+    "register": "Register user",
+    "firstName": "First name",
+    "lastName": "Last name",
+    "email": "Email (optional)",
+    "phone": "Phone (optional)",
+    "contactHint": "Add an email or phone number — both are optional.",
+    "addUser": "Add user",
+    "registeredOn": "Registered on",
+    "empty": "No users yet. Register your first user.",
+    "created": "User registered"
+  },
+  "attendance": {
+    "title": "Mark attendance",
+    "selectDate": "Select date",
+    "present": "Present",
+    "absent": "Absent",
+    "late": "Late",
+    "marked": "Attendance saved",
+    "noUsers": "Register users before marking attendance."
+  },
+  "reports": {
+    "title": "Reports",
+    "scope": "Report for",
+    "single": "A single user",
+    "all": "All users",
+    "selectUser": "Select user",
+    "dateRange": "Date range",
+    "generate": "Generate report",
+    "share": "Share",
+    "export": "Export CSV",
+    "empty": "No attendance records for the selected range.",
+    "summary": "Summary",
+    "present": "Present",
+    "absent": "Absent",
+    "late": "Late",
+    "total": "Total"
+  }
+}

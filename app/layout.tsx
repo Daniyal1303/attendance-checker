@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "ticktock — Timesheet tracking",
+  title: "AttenDO — Timesheet tracking",
   description: "Lightweight weekly timesheets for modern teams.",
 };
 

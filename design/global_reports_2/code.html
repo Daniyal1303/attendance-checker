@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Global Reports - Attendance Pro</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "tertiary": "#3f4143",
+            "surface-bright": "#f9f9ff",
+            "primary-container": "#6000ff",
+            "inverse-on-surface": "#ebf1ff",
+            "outline": "#7a7489",
+            "primary": "#4700c1",
+            "inverse-primary": "#ccbdff",
+            "secondary-fixed": "#e2e2e2",
+            "on-tertiary-fixed-variant": "#454749",
+            "error-container": "#ffdad6",
+            "error": "#ba1a1a",
+            "on-tertiary": "#ffffff",
+            "on-error": "#ffffff",
+            "on-error-container": "#93000a",
+            "tertiary-container": "#56585b",
+            "surface-variant": "#dce2f3",
+            "surface-dim": "#d3daea",
+            "secondary-container": "#e2e2e2",
+            "on-surface-variant": "#494457",
+            "outline-variant": "#cac3da",
+            "on-secondary-container": "#646464",
+            "on-tertiary-fixed": "#1a1c1e",
+            "primary-fixed-dim": "#ccbdff",
+            "surface-container-low": "#f0f3ff",
+            "on-surface": "#151c27",
+            "secondary-fixed-dim": "#c6c6c6",
+            "primary-fixed": "#e7deff",
+            "on-secondary": "#ffffff",
+            "on-primary-fixed": "#1f0060",
+            "background": "#f9f9ff",
+            "on-tertiary-container": "#ceced1",
+            "surface-container": "#e7eefe",
+            "on-secondary-fixed": "#1b1b1b",
+            "surface-container-highest": "#dce2f3",
+            "on-background": "#151c27",
+            "surface-tint": "#6723ff",
+            "surface-container-high": "#e2e8f8",
+            "inverse-surface": "#2a313d",
+            "tertiary-fixed": "#e2e2e5",
+            "secondary": "#5e5e5e",
+            "on-secondary-fixed-variant": "#474747",
+            "tertiary-fixed-dim": "#c6c6c9",
+            "surface-container-lowest": "#ffffff",
+            "surface": "#f9f9ff",
+            "on-primary": "#ffffff",
+            "on-primary-fixed-variant": "#4d00d2",
+            "on-primary-container": "#d4c7ff"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.125rem",
+            "lg": "0.25rem",
+            "xl": "0.5rem",
+            "full": "0.75rem"
+          },
+          "spacing": {
+            "gutter": "24px",
+            "base": "4px",
+            "xl": "32px",
+            "lg": "24px",
+            "sm": "8px",
+            "xs": "4px",
+            "md": "16px",
+            "container-max": "1280px"
+          },
+          "fontFamily": {
+            "display-lg": ["Inter"],
+            "label-sm": ["Inter"],
+            "label-md": ["Inter"],
+            "headline-lg-mobile": ["Inter"],
+            "body-md": ["Inter"],
+            "body-lg": ["Inter"],
+            "headline-md": ["Inter"],
+            "headline-lg": ["Inter"]
+          },
+          "fontSize": {
+            "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+            "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "600"}],
+            "label-md": ["14px", {"lineHeight": "20px", "fontWeight": "500"}],
+            "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "700"}],
+            "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+            "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+            "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+            "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700"}]
+          }
+        },
+      },
+    }
+  </script>
+<style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    }
+    .hide-scrollbar::-webkit-scrollbar { display: none; }
+    .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+  </style>
+</head>
+<body class="bg-background text-on-surface font-body-md min-h-screen pb-20 md:pb-0">
+<!-- TopAppBar -->
+<header class="bg-surface border-b border-outline-variant w-full sticky top-0 z-50">
+<div class="flex items-center justify-between px-gutter h-16 w-full max-w-container-max mx-auto">
+<div class="flex items-center gap-md">
+<button class="hover:bg-surface-container-low transition-colors active:scale-95 p-sm rounded-full">
+<span class="material-symbols-outlined text-primary">menu</span>
+</button>
+<h1 class="font-headline-md text-headline-md font-bold text-primary">Attendance Pro</h1>
+</div>
+<div class="flex items-center gap-xs">
+<button class="hover:bg-surface-container-low transition-colors active:scale-95 p-sm rounded-full">
+<span class="material-symbols-outlined text-on-surface-variant">share</span>
+</button>
+<button class="hover:bg-surface-container-low transition-colors active:scale-95 p-sm rounded-full">
+<span class="material-symbols-outlined text-on-surface-variant">download</span>
+</button>
+<button class="hover:bg-surface-container-low transition-colors active:scale-95 p-sm rounded-full">
+<span class="material-symbols-outlined text-primary">account_circle</span>
+</button>
+</div>
+</div>
+</header>
+<div class="flex max-w-container-max mx-auto">
+<!-- Desktop Navigation Drawer -->
+<aside class="hidden lg:flex flex-col py-lg bg-surface border-r border-outline-variant h-[calc(100vh-64px)] w-80 sticky top-16 z-[40]">
+<div class="px-lg mb-xl">
+<div class="flex items-center gap-md">
+<img alt="Admin" class="w-12 h-12 rounded-full bg-primary-container p-1" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCvb5ogiBMa6isgS9igh_L5qBZFmocRtmL-Hz7yaKoO52Y6BmYO0APEGNWG69F0vy5A9_fSy2n2vwyArhieGuEWpNwhtsXIlooxI76DVyZpcPivQ3fJLWw04SVHjGg3_RAVfvBGiC9JliEfEmRl52Mf6sAPcX3RvX--xPKssC1L-86oldY09AnKDsTuaQeDDwp0HkhOOSORtnu_EBTw92ai1qjmoeLu-s8sbs-gRRx6rP6l9eDZM---l2aM2QmjUPmwo-LKrgPkrUw"/>
+<div>
+<p class="font-headline-md text-body-lg font-bold text-primary leading-tight">Admin Central</p>
+<p class="font-body-md text-label-md text-secondary">HR Department</p>
+</div>
+</div>
+</div>
+<nav class="flex-1 space-y-1">
+<a class="text-on-surface-variant hover:bg-surface-container-high rounded-full mx-md px-lg py-md flex items-center gap-md transition-all active:scale-[0.98]" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-body-md">Dashboard</span>
+</a>
+<a class="text-on-surface-variant hover:bg-surface-container-high rounded-full mx-md px-lg py-md flex items-center gap-md transition-all active:scale-[0.98]" href="#">
+<span class="material-symbols-outlined">person_search</span>
+<span class="font-body-md">User Directory</span>
+</a>
+<a class="text-on-surface-variant hover:bg-surface-container-high rounded-full mx-md px-lg py-md flex items-center gap-md transition-all active:scale-[0.98]" href="#">
+<span class="material-symbols-outlined">event_available</span>
+<span class="font-body-md">Attendance Log</span>
+</a>
+<a class="bg-primary-container text-on-primary-container rounded-full mx-md px-lg py-md flex items-center gap-md transition-all active:scale-[0.98]" href="#">
+<span class="material-symbols-outlined">analytics</span>
+<span class="font-body-md">Global Reports</span>
+</a>
+<a class="text-on-surface-variant hover:bg-surface-container-high rounded-full mx-md px-lg py-md flex items-center gap-md transition-all active:scale-[0.98]" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-body-md">Settings</span>
+</a>
+</nav>
+<div class="px-lg mt-auto pb-lg">
+<p class="text-label-sm text-secondary">v1.0.2</p>
+</div>
+</aside>
+<!-- Main Content -->
+<main class="flex-1 p-gutter max-w-full overflow-hidden">
+<!-- Page Header -->
+<header class="flex flex-col md:flex-row md:items-center justify-between mb-lg gap-md">
+<section>
+<h2 class="font-headline-lg text-headline-lg text-on-background">Global Reports</h2>
+<p class="font-body-md text-secondary">Analyzing attendance metrics across the organization.</p>
+</section>
+<!-- Segmented Control (Tabs) -->
+<nav aria-label="Time period selection" class="inline-flex p-1 bg-surface-container-high rounded-xl w-fit">
+<button class="tab-btn px-6 py-2 rounded-lg font-label-md transition-all bg-surface-container-lowest text-primary shadow-sm" onclick="switchTab(this, 'daily')">Daily</button>
+<button class="tab-btn px-6 py-2 rounded-lg font-label-md transition-all text-secondary hover:text-on-surface" onclick="switchTab(this, 'weekly')">Weekly</button>
+<button class="tab-btn px-6 py-2 rounded-lg font-label-md transition-all text-secondary hover:text-on-surface" onclick="switchTab(this, 'monthly')">Monthly</button>
+</nav>
+</header>
+<!-- Dashboard Grid -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-lg">
+<!-- Chart Section -->
+<section class="md:col-span-8 bg-surface-container-lowest border border-outline-variant rounded-xl p-lg flex flex-col min-h-[400px]">
+<div class="flex items-center justify-between mb-md">
+<h3 class="font-headline-md text-body-lg font-bold">Attendance Trends</h3>
+<button class="material-symbols-outlined text-secondary cursor-help" title="Visual representation of attendance rates">info</button>
+</div>
+<div aria-label="Attendance Bar Chart" class="flex-1 flex items-end justify-around gap-sm pt-xl">
+<div class="w-full flex flex-col items-center group">
+<div class="w-full max-w-[48px] bg-primary-container/20 rounded-t-lg transition-all group-hover:bg-primary-container h-32 relative">
+<span class="absolute -top-8 left-1/2 -translate-x-1/2 text-label-sm opacity-0 group-hover:opacity-100 transition-opacity">82%</span>
+</div>
+<span class="mt-sm font-label-sm text-secondary">Mon</span>
+</div>
+<div class="w-full flex flex-col items-center group">
+<div class="w-full max-w-[48px] bg-primary rounded-t-lg transition-all h-48 relative">
+<span class="absolute -top-8 left-1/2 -translate-x-1/2 text-label-sm opacity-0 group-hover:opacity-100 transition-opacity">94%</span>
+</div>
+<span class="mt-sm font-label-sm text-secondary">Tue</span>
+</div>
+<div class="w-full flex flex-col items-center group">
+<div class="w-full max-w-[48px] bg-primary-container/20 rounded-t-lg transition-all group-hover:bg-primary-container h-40 relative">
+<span class="absolute -top-8 left-1/2 -translate-x-1/2 text-label-sm opacity-0 group-hover:opacity-100 transition-opacity">88%</span>
+</div>
+<span class="mt-sm font-label-sm text-secondary">Wed</span>
+</div>
+<div class="w-full flex flex-col items-center group">
+<div class="w-full max-w-[48px] bg-primary rounded-t-lg transition-all h-52 relative">
+<span class="absolute -top-8 left-1/2 -translate-x-1/2 text-label-sm opacity-0 group-hover:opacity-100 transition-opacity">97%</span>
+</div>
+<span class="mt-sm font-label-sm text-secondary">Thu</span>
+</div>
+<div class="w-full flex flex-col items-center group">
+<div class="w-full max-w-[48px] bg-primary-container/20 rounded-t-lg transition-all group-hover:bg-primary-container h-24 relative">
+<span class="absolute -top-8 left-1/2 -translate-x-1/2 text-label-sm opacity-0 group-hover:opacity-100 transition-opacity">76%</span>
+</div>
+<span class="mt-sm font-label-sm text-secondary">Fri</span>
+</div>
+</div>
+</section>
+<!-- Sidebar Stats -->
+<div class="md:col-span-4 flex flex-col gap-lg">
+<!-- Primary Stat Card -->
+<article class="bg-primary text-on-primary p-lg rounded-xl flex flex-col justify-between shadow-lg">
+<header>
+<p class="font-label-md opacity-80 uppercase tracking-wider">Average Attendance</p>
+<h4 class="font-display-lg text-display-lg mt-xs">89.4%</h4>
+</header>
+<footer class="flex items-center gap-xs mt-xl">
+<span class="material-symbols-outlined text-sm">trending_up</span>
+<span class="font-label-sm">+2.4% from last month</span>
+</footer>
+</article>
+<!-- Department Highlight Card -->
+<article class="bg-surface-container-high border border-outline-variant p-lg rounded-xl">
+<header>
+<p class="font-label-md text-on-surface-variant uppercase tracking-wider">Top Department</p>
+<h4 class="font-headline-md text-headline-md text-primary mt-sm">Engineering</h4>
+</header>
+<footer class="flex items-center justify-between mt-xl">
+<span class="font-label-sm text-secondary">98% Streak</span>
+<div aria-label="Top Performers" class="flex -space-x-2">
+<div class="w-8 h-8 rounded-full bg-primary-container border-2 border-surface-container-high"></div>
+<div class="w-8 h-8 rounded-full bg-secondary-container border-2 border-surface-container-high"></div>
+<div class="w-8 h-8 rounded-full bg-tertiary-fixed border-2 border-surface-container-high"></div>
+</div>
+</footer>
+</article>
+</div>
+<!-- Detailed Data Table Section -->
+<section class="md:col-span-12 bg-surface-container-lowest border border-outline-variant rounded-xl overflow-hidden shadow-sm">
+<header class="px-lg py-md border-b border-outline-variant flex items-center justify-between bg-surface-container-lowest">
+<h3 class="font-headline-md text-body-lg font-bold">Department Breakdown</h3>
+<button aria-label="Filter data" class="p-sm border border-outline-variant rounded-lg hover:bg-surface-container-low transition-colors">
+<span class="material-symbols-outlined text-on-surface-variant">filter_list</span>
+</button>
+</header>
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container-low/50">
+<th class="px-lg py-md font-label-md text-secondary uppercase tracking-wider">Department</th>
+<th class="px-lg py-md font-label-md text-secondary uppercase tracking-wider text-center">Total Staff</th>
+<th class="px-lg py-md font-label-md text-secondary uppercase tracking-wider text-center">Present</th>
+<th class="px-lg py-md font-label-md text-secondary uppercase tracking-wider text-center">On Leave</th>
+<th class="px-lg py-md font-label-md text-secondary uppercase tracking-wider text-right">Avg Rate</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant">
+<tr class="hover:bg-surface-container-low/30 transition-colors">
+<td class="px-lg py-md font-body-md font-semibold">Engineering</td>
+<td class="px-lg py-md font-body-md text-center">142</td>
+<td class="px-lg py-md font-body-md text-center">138</td>
+<td class="px-lg py-md font-body-md text-center">4</td>
+<td class="px-lg py-md font-body-md text-right">
+<span class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-label-sm font-bold">97.2%</span>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low/30 transition-colors">
+<td class="px-lg py-md font-body-md font-semibold">Product Design</td>
+<td class="px-lg py-md font-body-md text-center">28</td>
+<td class="px-lg py-md font-body-md text-center">25</td>
+<td class="px-lg py-md font-body-md text-center">3</td>
+<td class="px-lg py-md font-body-md text-right">
+<span class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-label-sm font-bold">89.3%</span>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low/30 transition-colors">
+<td class="px-lg py-md font-body-md font-semibold">Marketing</td>
+<td class="px-lg py-md font-body-md text-center">54</td>
+<td class="px-lg py-md font-body-md text-center">42</td>
+<td class="px-lg py-md font-body-md text-center">12</td>
+<td class="px-lg py-md font-body-md text-right">
+<span class="bg-yellow-100 text-yellow-800 px-3 py-1 rounded-full text-label-sm font-bold">77.8%</span>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low/30 transition-colors">
+<td class="px-lg py-md font-body-md font-semibold">Operations</td>
+<td class="px-lg py-md font-body-md text-center">88</td>
+<td class="px-lg py-md font-body-md text-center">80</td>
+<td class="px-lg py-md font-body-md text-center">8</td>
+<td class="px-lg py-md font-body-md text-right">
+<span class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-label-sm font-bold">90.9%</span>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+</div>
+</main>
+</div>
+<!-- BottomNavBar (Mobile Only) -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full z-50 border-t border-outline-variant bg-surface flex justify-around items-center h-16 px-sm pb-safe shadow-2xl">
+<a class="flex flex-col items-center justify-center w-full text-secondary hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined">group</span>
+<span class="text-label-sm">Users</span>
+</a>
+<a class="flex flex-col items-center justify-center w-full text-secondary hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined">how_to_reg</span>
+<span class="text-label-sm">Mark</span>
+</a>
+<a aria-current="page" class="flex flex-col items-center justify-center w-full text-primary font-bold transition-colors" href="#">
+<span class="material-symbols-outlined">assessment</span>
+<span class="text-label-sm">Reports</span>
+</a>
+<a class="flex flex-col items-center justify-center w-full text-secondary hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined">person</span>
+<span class="text-label-sm">Profile</span>
+</a>
+</nav>
+<script>
+    function switchTab(el, tab) {
+      const btns = document.querySelectorAll('.tab-btn');
+      btns.forEach(btn => {
+        btn.classList.remove('bg-surface-container-lowest', 'text-primary', 'shadow-sm');
+        btn.classList.add('text-secondary');
+      });
+      el.classList.remove('text-secondary');
+      el.classList.add('bg-surface-container-lowest', 'text-primary', 'shadow-sm');
+      
+      // Simulate data loading transition
+      const chartArea = document.querySelector('section.md\\:col-span-8');
+      if (chartArea) {
+        chartArea.style.opacity = '0.7';
+        setTimeout(() => {
+          chartArea.style.opacity = '1';
+        }, 300);
+      }
+    }
+
+    // Micro-interactions for chart bars
+    document.querySelectorAll('.group .max-w-\\[48px\\]').forEach(bar => {
+      bar.addEventListener('mouseenter', () => {
+        bar.style.transform = 'scaleY(1.03)';
+      });
+      bar.addEventListener('mouseleave', () => {
+        bar.style.transform = 'scaleY(1)';
+      });
+    });
+  </script>
+</body></html>

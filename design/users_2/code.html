@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Users - Attendance Pro</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "tertiary": "#3f4143",
+                        "surface-bright": "#f9f9ff",
+                        "primary-container": "#6000ff",
+                        "inverse-on-surface": "#ebf1ff",
+                        "outline": "#7a7489",
+                        "primary": "#4700c1",
+                        "inverse-primary": "#ccbdff",
+                        "secondary-fixed": "#e2e2e2",
+                        "on-tertiary-fixed-variant": "#454749",
+                        "error-container": "#ffdad6",
+                        "error": "#ba1a1a",
+                        "on-tertiary": "#ffffff",
+                        "on-error": "#ffffff",
+                        "on-error-container": "#93000a",
+                        "tertiary-container": "#56585b",
+                        "surface-variant": "#dce2f3",
+                        "surface-dim": "#d3daea",
+                        "secondary-container": "#e2e2e2",
+                        "on-surface-variant": "#494457",
+                        "outline-variant": "#cac3da",
+                        "on-secondary-container": "#646464",
+                        "on-tertiary-fixed": "#1a1c1e",
+                        "primary-fixed-dim": "#ccbdff",
+                        "surface-container-low": "#f0f3ff",
+                        "on-surface": "#151c27",
+                        "secondary-fixed-dim": "#c6c6c6",
+                        "primary-fixed": "#e7deff",
+                        "on-secondary": "#ffffff",
+                        "on-primary-fixed": "#1f0060",
+                        "background": "#f9f9ff",
+                        "on-tertiary-container": "#ceced1",
+                        "surface-container": "#e7eefe",
+                        "on-secondary-fixed": "#1b1b1b",
+                        "surface-container-highest": "#dce2f3",
+                        "on-background": "#151c27",
+                        "surface-tint": "#6723ff",
+                        "surface-container-high": "#e2e8f8",
+                        "inverse-surface": "#2a313d",
+                        "tertiary-fixed": "#e2e2e5",
+                        "secondary": "#5e5e5e",
+                        "on-secondary-fixed-variant": "#474747",
+                        "tertiary-fixed-dim": "#c6c6c9",
+                        "surface-container-lowest": "#ffffff",
+                        "surface": "#f9f9ff",
+                        "on-primary": "#ffffff",
+                        "on-primary-fixed-variant": "#4d00d2",
+                        "on-primary-container": "#d4c7ff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "gutter": "24px",
+                        "base": "4px",
+                        "xl": "32px",
+                        "lg": "24px",
+                        "sm": "8px",
+                        "xs": "4px",
+                        "md": "16px",
+                        "container-max": "1280px"
+                    },
+                    "fontFamily": {
+                        "display-lg": ["Inter"],
+                        "label-sm": ["Inter"],
+                        "label-md": ["Inter"],
+                        "headline-lg-mobile": ["Inter"],
+                        "body-md": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "headline-lg": ["Inter"]
+                    },
+                    "fontSize": {
+                        "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "600"}],
+                        "label-md": ["14px", {"lineHeight": "20px", "fontWeight": "500"}],
+                        "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "700"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                        "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .fab-shadow {
+            box-shadow: 0px 6px 16px rgba(96, 0, 255, 0.4);
+        }
+        /* Semantic component classes for mapping */
+        .user-list-item { transition: background-color 0.2s ease; }
+        .stat-card { transition: transform 0.2s ease; }
+    </style>
+</head>
+<body class="bg-background text-on-surface min-h-screen pb-24 md:pb-8">
+<!-- Top Navigation -->
+<header class="bg-surface border-b border-outline-variant sticky top-0 z-50">
+<div class="flex items-center justify-between px-gutter h-16 max-w-container-max mx-auto">
+<div class="flex items-center gap-md">
+<button class="material-symbols-outlined text-primary p-2 rounded-full hover:bg-surface-container-low active:scale-95 transition-transform" onclick="document.getElementById('nav-drawer').classList.remove('-translate-x-full'); document.getElementById('nav-drawer-overlay').classList.remove('hidden');">
+                menu
+            </button>
+<h1 class="font-headline-md text-headline-md font-bold text-primary">Attendance Pro</h1>
+</div>
+<div class="flex items-center gap-sm">
+<button class="material-symbols-outlined text-primary p-2 rounded-full hover:bg-surface-container-low">language</button>
+<button class="material-symbols-outlined text-primary p-2 rounded-full hover:bg-surface-container-low">account_circle</button>
+</div>
+</div>
+</header>
+<!-- Navigation Drawer Overlay -->
+<div class="fixed inset-0 bg-black/50 z-[60] hidden" id="nav-drawer-overlay" onclick="this.classList.add('hidden'); document.getElementById('nav-drawer').classList.add('-translate-x-full')"></div>
+<!-- Navigation Drawer -->
+<aside class="fixed left-0 top-0 h-full w-72 bg-surface z-[70] shadow-2xl transform -translate-x-full transition-transform duration-300 ease-in-out" id="nav-drawer">
+<div class="p-lg border-b border-outline-variant">
+<h2 class="font-headline-md text-primary font-bold">Attendance Pro</h2>
+</div>
+<nav class="py-md">
+<a class="flex items-center gap-md px-lg py-3 hover:bg-surface-container-low text-on-surface" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-label-md">Dashboard</span>
+</a>
+<a class="flex items-center gap-md px-lg py-3 bg-primary-fixed text-on-primary-fixed" href="#">
+<span class="material-symbols-outlined">group</span>
+<span class="font-label-md">Users</span>
+</a>
+<a class="flex items-center gap-md px-lg py-3 hover:bg-surface-container-low text-on-surface" href="#">
+<span class="material-symbols-outlined">assessment</span>
+<span class="font-label-md">Reports</span>
+</a>
+<a class="flex items-center gap-md px-lg py-3 hover:bg-surface-container-low text-on-surface" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-label-md">Settings</span>
+</a>
+</nav>
+</aside>
+<main class="max-w-container-max mx-auto px-gutter py-lg">
+<!-- Page Header -->
+<section class="mb-xl">
+<h2 class="font-headline-lg text-headline-lg text-on-surface">Users</h2>
+<p class="font-body-md text-body-md text-on-surface-variant">Manage your organization's employee access and roles.</p>
+</section>
+<!-- Statistics Grid (Repeatable Component) -->
+<section class="grid grid-cols-1 md:grid-cols-3 gap-lg mb-xl">
+<div class="stat-card bg-surface-container-lowest p-lg rounded-lg border border-outline-variant flex items-center justify-between overflow-hidden relative">
+<div>
+<p class="font-label-sm text-label-sm text-secondary uppercase tracking-wider mb-xs">Total Employees</p>
+<p class="font-display-lg text-display-lg text-on-surface">142</p>
+</div>
+<span class="material-symbols-outlined text-[64px] text-primary opacity-10 absolute -right-base -bottom-base">group</span>
+</div>
+<div class="stat-card bg-surface-container-lowest p-lg rounded-lg border border-outline-variant flex items-center justify-between overflow-hidden relative">
+<div>
+<p class="font-label-sm text-label-sm text-secondary uppercase tracking-wider mb-xs">Active Now</p>
+<p class="font-display-lg text-display-lg text-primary">89</p>
+</div>
+<span class="material-symbols-outlined text-[64px] text-primary opacity-10 absolute -right-base -bottom-base">bolt</span>
+</div>
+<div class="stat-card bg-surface-container-lowest p-lg rounded-lg border border-outline-variant flex items-center justify-between overflow-hidden relative">
+<div>
+<p class="font-label-sm text-label-sm text-secondary uppercase tracking-wider mb-xs">On Leave</p>
+<p class="font-display-lg text-display-lg text-on-surface-variant">12</p>
+</div>
+<span class="material-symbols-outlined text-[64px] text-on-surface-variant opacity-10 absolute -right-base -bottom-base">beach_access</span>
+</div>
+</section>
+<!-- Employee Management Section -->
+<section class="bg-surface-container-lowest rounded-lg border border-outline-variant overflow-hidden shadow-sm">
+<!-- List Header -->
+<div class="px-lg py-md border-b border-outline-variant bg-surface-container-low flex items-center justify-between">
+<span class="font-label-md text-label-md text-secondary">Employee Details</span>
+<span class="font-label-md text-label-md text-secondary">Actions</span>
+</div>
+<!-- User List (Mapped Component Structure) -->
+<ul class="divide-y divide-outline-variant">
+<!-- ListItem Component -->
+<li class="user-list-item px-lg py-md flex items-center justify-between hover:bg-surface-container-low">
+<div class="flex items-center gap-md">
+<div class="w-12 h-12 rounded-lg overflow-hidden bg-primary-container flex-shrink-0">
+<img alt="John Smith" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAW21i5GFHZcpHIVhT7VynVaFtWSlnhNoe1U57hJu0PUEyBEjVzo5YUAEJNeRWy01FyEU6wrcdiGuCQz7upW-4AgJWe6cCrCW398jIWCEflQro4APlp3IgKzzA3V_KWs3NN9h58WFsn30Y-7GZa5QH8pBnxMGFKgY52t_3LuXPUTr5ysiQpFJMPBKlYwPLUi-FKNMOrm9MC2i7gGw3n-I_kNL4rpYn-Gt-xpyIcm1-D9bYyG_fXilrdcwnUMRfWHQBQvG10ohv6wFo"/>
+</div>
+<div>
+<h4 class="font-label-md text-on-surface font-semibold">John Smith</h4>
+<p class="font-body-md text-label-sm text-on-surface-variant">Senior Project Manager</p>
+</div>
+</div>
+<div class="flex items-center gap-sm">
+<span class="hidden sm:inline-block bg-secondary-container text-on-secondary-container px-sm py-1 rounded-lg font-label-sm">Admin</span>
+<button aria-label="Delete user" class="p-2 text-on-surface-variant hover:text-error hover:bg-error-container/20 rounded-full transition-colors active:scale-90">
+<span class="material-symbols-outlined">delete</span>
+</button>
+</div>
+</li>
+<!-- ListItem Component -->
+<li class="user-list-item px-lg py-md flex items-center justify-between hover:bg-surface-container-low">
+<div class="flex items-center gap-md">
+<div class="w-12 h-12 rounded-lg overflow-hidden bg-primary-container flex-shrink-0">
+<img alt="Amara Diallo" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC2oexHjn-ObiY9pRFRlQTMZU3x4yiXYfv1xRspVzw-zILjvSkl3j5Jr686mTtny3LmeWNAfU3MiU-lsbwpFqU7y35Mc3oeOZwCFsMLKcNKcxrFVx5nJHYGGNQdSDKOHHj7EeCG4J3pEgCt55eiZ3GKeMozQIYctDkRZVmM1mI_VNbI8u7jRjRM0-VkPnTMwQSGewlct78JlY7tjF7zeZr1q-vcn_q6NEgkAQaOhT8VyaNmnLM3KaS19toXkgNH2mJK-yE5iQcK6YA"/>
+</div>
+<div>
+<h4 class="font-label-md text-on-surface font-semibold">Amara Diallo</h4>
+<p class="font-body-md text-label-sm text-on-surface-variant">Lead Designer</p>
+</div>
+</div>
+<div class="flex items-center gap-sm">
+<span class="hidden sm:inline-block bg-secondary-container text-on-secondary-container px-sm py-1 rounded-lg font-label-sm">Editor</span>
+<button aria-label="Delete user" class="p-2 text-on-surface-variant hover:text-error hover:bg-error-container/20 rounded-full transition-colors active:scale-90">
+<span class="material-symbols-outlined">delete</span>
+</button>
+</div>
+</li>
+<!-- ListItem Component -->
+<li class="user-list-item px-lg py-md flex items-center justify-between hover:bg-surface-container-low">
+<div class="flex items-center gap-md">
+<div class="w-12 h-12 rounded-lg overflow-hidden bg-primary-container flex-shrink-0">
+<img alt="Leo Kim" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBjNKK_wJXD5f4bDwPSu5yxyBhZ0ma89EO-O7Ma3gO8bBfmPRaVXD9d8d0c-AwPL3JqGS6VG19IZCjl2FWny4slCVM6Ahu3arbUnge8b6DtJhdKh_Le005e4UB48HdDlLAXYcXdzbgPt17hzfpCf5AOJ9Hv2yjA1HQcLkn8x3Sa0vqVicm0FvydvtG-JmTZK-iMb1_rjuT6nrtd3Q9jIkUd1aCKkkoKxcFkTwHsi_uT6DYbhHezkYorFZD9i1lAnu79g4q_GMC0wMQ"/>
+</div>
+<div>
+<h4 class="font-label-md text-on-surface font-semibold">Leo Kim</h4>
+<p class="font-body-md text-label-sm text-on-surface-variant">Full Stack Developer</p>
+</div>
+</div>
+<div class="flex items-center gap-sm">
+<span class="hidden sm:inline-block bg-secondary-container text-on-secondary-container px-sm py-1 rounded-lg font-label-sm">User</span>
+<button aria-label="Delete user" class="p-2 text-on-surface-variant hover:text-error hover:bg-error-container/20 rounded-full transition-colors active:scale-90">
+<span class="material-symbols-outlined">delete</span>
+</button>
+</div>
+</li>
+</ul>
+<!-- Pagination / View All -->
+<div class="px-lg py-md border-t border-outline-variant text-center bg-surface-container-lowest">
+<button class="font-label-md text-primary font-bold hover:underline">View all employees</button>
+</div>
+</section>
+</main>
+<!-- Floating Action Button - Positioned for thumb reach -->
+<button aria-label="Add user" class="fixed bottom-24 md:bottom-8 right-gutter w-14 h-14 bg-primary-container text-on-primary-container rounded-lg fab-shadow flex items-center justify-center hover:bg-primary hover:scale-105 active:scale-95 transition-all z-[60] group">
+<span class="material-symbols-outlined text-[32px]">add</span>
+<span class="absolute right-full mr-md bg-inverse-surface text-inverse-on-surface px-md py-sm rounded-lg font-label-sm opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">Add New User</span>
+</button>
+<!-- Bottom Navigation Bar (Mobile Only) -->
+<nav class="fixed bottom-0 left-0 right-0 h-16 bg-surface border-t border-outline-variant md:hidden z-50">
+<div class="flex justify-around items-center h-full max-w-md mx-auto">
+<a class="flex flex-col items-center justify-center text-primary" href="#">
+<span class="material-symbols-outlined">group</span>
+<span class="font-label-sm">Users</span>
+</a>
+<a class="flex flex-col items-center justify-center text-secondary hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined">how_to_reg</span>
+<span class="font-label-sm">Mark</span>
+</a>
+<a class="flex flex-col items-center justify-center text-secondary hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined">assessment</span>
+<span class="font-label-sm">Reports</span>
+</a>
+<a class="flex flex-col items-center justify-center text-secondary hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined">person</span>
+<span class="font-label-sm">Profile</span>
+</a>
+</div>
+</nav>
+<script>
+    // Delete action handler
+    document.querySelectorAll('.user-list-item button').forEach(button => {
+        button.addEventListener('click', function() {
+            const row = this.closest('.user-list-item');
+            if (confirm('Permanently remove this employee record?')) {
+                row.style.opacity = '0';
+                row.style.transform = 'translateY(-10px)';
+                setTimeout(() => row.remove(), 300);
+            }
+        });
+    });
+
+    // FAB Ripple effect logic
+    document.querySelector('.fab-shadow').addEventListener('click', function() {
+        const ripple = document.createElement('div');
+        ripple.className = 'absolute inset-0 bg-white/20 rounded-lg animate-ping';
+        this.appendChild(ripple);
+        setTimeout(() => ripple.remove(), 400);
+    });
+</script>
+</body></html>

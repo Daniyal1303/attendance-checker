@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Attendance Pro | Mark Attendance</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "tertiary": "#3f4143",
+                        "surface-bright": "#f9f9ff",
+                        "primary-container": "#6000ff",
+                        "inverse-on-surface": "#ebf1ff",
+                        "outline": "#7a7489",
+                        "primary": "#4700c1",
+                        "inverse-primary": "#ccbdff",
+                        "secondary-fixed": "#e2e2e2",
+                        "on-tertiary-fixed-variant": "#454749",
+                        "error-container": "#ffdad6",
+                        "error": "#ba1a1a",
+                        "on-tertiary": "#ffffff",
+                        "on-error": "#ffffff",
+                        "on-error-container": "#93000a",
+                        "tertiary-container": "#56585b",
+                        "surface-variant": "#dce2f3",
+                        "surface-dim": "#d3daea",
+                        "secondary-container": "#e2e2e2",
+                        "on-surface-variant": "#494457",
+                        "outline-variant": "#cac3da",
+                        "on-secondary-container": "#646464",
+                        "on-tertiary-fixed": "#1a1c1e",
+                        "primary-fixed-dim": "#ccbdff",
+                        "surface-container-low": "#f0f3ff",
+                        "on-surface": "#151c27",
+                        "secondary-fixed-dim": "#c6c6c6",
+                        "primary-fixed": "#e7deff",
+                        "on-secondary": "#ffffff",
+                        "on-primary-fixed": "#1f0060",
+                        "background": "#f9f9ff",
+                        "on-tertiary-container": "#ceced1",
+                        "surface-container": "#e7eefe",
+                        "on-secondary-fixed": "#1b1b1b",
+                        "surface-container-highest": "#dce2f3",
+                        "on-background": "#151c27",
+                        "surface-tint": "#6723ff",
+                        "surface-container-high": "#e2e8f8",
+                        "inverse-surface": "#2a313d",
+                        "tertiary-fixed": "#e2e2e5",
+                        "secondary": "#5e5e5e",
+                        "on-secondary-fixed-variant": "#474747",
+                        "tertiary-fixed-dim": "#c6c6c6",
+                        "surface-container-lowest": "#ffffff",
+                        "surface": "#f9f9ff",
+                        "on-primary": "#ffffff",
+                        "on-primary-fixed-variant": "#4d00d2",
+                        "on-primary-container": "#d4c7ff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "gutter": "24px",
+                        "base": "4px",
+                        "xl": "32px",
+                        "lg": "24px",
+                        "sm": "8px",
+                        "xs": "4px",
+                        "md": "16px",
+                        "container-max": "1280px"
+                    },
+                    "fontFamily": {
+                        "display-lg": ["Inter"],
+                        "label-sm": ["Inter"],
+                        "label-md": ["Inter"],
+                        "headline-lg-mobile": ["Inter"],
+                        "body-md": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "headline-lg": ["Inter"]
+                    },
+                    "fontSize": {
+                        "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "600"}],
+                        "label-md": ["14px", {"lineHeight": "20px", "fontWeight": "500"}],
+                        "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "700"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                        "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; -webkit-tap-highlight-color: transparent; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .filled-icon { font-variation-settings: 'FILL' 1; }
+        .pb-safe { padding-bottom: env(safe-area-inset-bottom); }
+    </style>
+</head>
+<body class="bg-background text-on-background min-h-screen">
+<!-- Section: Header (TopAppBar) -->
+<header class="sticky top-0 z-50 bg-surface/80 backdrop-blur-md border-b border-outline-variant">
+<div class="max-w-container-max mx-auto h-16 px-gutter flex items-center justify-between">
+<div class="flex items-center gap-md">
+<button class="material-symbols-outlined p-sm rounded-full hover:bg-surface-container-high text-primary transition-colors">menu</button>
+<h1 class="font-headline-md text-headline-md text-primary">Attendance Pro</h1>
+</div>
+<div class="flex items-center gap-md">
+<button class="material-symbols-outlined p-sm rounded-full hover:bg-surface-container-high text-on-surface-variant transition-colors" title="Change Language">language</button>
+<div class="w-10 h-10 rounded-full bg-surface-container-high flex items-center justify-center overflow-hidden border border-outline-variant">
+<span class="material-symbols-outlined text-on-surface-variant">person</span>
+</div>
+</div>
+</div>
+</header>
+<main class="max-w-container-max mx-auto px-gutter py-lg pb-40">
+<!-- Section: Dashboard Title & Stats -->
+<section class="mb-xl flex flex-col md:flex-row md:items-end justify-between gap-lg" id="stats-section">
+<div class="space-y-xs">
+<p class="font-label-sm text-label-sm text-primary-container font-bold tracking-[0.1em] uppercase">Daily Operations</p>
+<h2 class="font-headline-lg text-headline-lg text-on-background">Mark Attendance</h2>
+<div class="flex items-center gap-xs text-on-surface-variant">
+<span class="material-symbols-outlined text-[18px]">calendar_today</span>
+<span class="font-body-md text-body-md" id="current-date">Friday, May 22, 2026</span>
+</div>
+</div>
+<div class="flex items-center gap-0 bg-surface-container-lowest border border-outline-variant rounded-xl divide-x divide-outline-variant overflow-hidden">
+<div class="px-lg py-md text-center">
+<p class="font-label-sm text-label-sm text-on-surface-variant uppercase">Total Staff</p>
+<p class="font-headline-md text-headline-md text-on-surface">148</p>
+</div>
+<div class="px-lg py-md text-center">
+<p class="font-label-sm text-label-sm text-on-surface-variant uppercase">Remaining</p>
+<p class="font-headline-md text-headline-md text-primary" id="remaining-count">148</p>
+</div>
+</div>
+</section>
+<!-- Section: Filters & Search -->
+<section class="mb-lg flex flex-col sm:flex-row gap-md" id="controls-section">
+<div class="relative flex-grow">
+<span class="material-symbols-outlined absolute left-md top-1/2 -translate-y-1/2 text-on-surface-variant">search</span>
+<input class="w-full pl-xl pr-md py-md bg-surface-container-lowest border border-outline-variant rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent outline-none font-body-md transition-all" placeholder="Search employees by name or ID..." type="text"/>
+</div>
+<button class="flex items-center justify-center gap-sm px-lg py-md bg-surface-container-lowest border border-outline-variant rounded-xl hover:bg-surface-container-high transition-colors font-label-md text-label-md">
+<span class="material-symbols-outlined">filter_list</span>
+                Department: All
+            </button>
+</section>
+<!-- Section: Employee Attendance List -->
+<section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-md" id="attendance-list">
+<!-- Cards are injected via JS or mapping -->
+<!-- Placeholder for a clean single card component structure -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-md flex flex-col gap-md hover:shadow-lg transition-all group">
+<div class="flex items-start justify-between">
+<div class="flex items-center gap-md">
+<div class="w-12 h-12 rounded-full overflow-hidden border border-outline-variant bg-surface-container-high">
+<img alt="Alex Rivera" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAneWFUa8OedzzDwcFYrYZSwVvIWQ14Od6A9dmdeSmkceLCGhC8vgsmm27ocp245HyEDlLEef-8rpXzPQShqGv_LPb2ZK0KVHb4Q4uuIeauD6vyLbAE3Cwp6DYFlGLyQz5BEJLFAWg1qGy874dz2U9BVPXTDt9Hsm_Qczyv5Nkez3UJYmPGUPihaVruA2WliiplqYZ2YwPdrshh6f1QfY-DbrY7nlrhNA9jOALNu7AH3MUzbDleEsO20h6DXk99GrE3u-Db9CqjnXs"/>
+</div>
+<div>
+<p class="font-label-md text-label-md text-on-background font-bold">Alex Rivera</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant">EMP-001</p>
+</div>
+</div>
+<span class="px-sm py-1 bg-surface-container-high text-on-surface-variant font-label-sm text-[10px] rounded uppercase font-bold tracking-wider">Creative</span>
+</div>
+<div class="flex gap-sm">
+<button class="flex-1 flex items-center justify-center gap-xs py-sm border border-outline-variant rounded-lg font-label-md hover:bg-primary-fixed transition-all active:scale-95" onclick="toggleAttendance(this, 'present')">
+<span class="material-symbols-outlined text-[20px]">check_circle</span> Present
+                    </button>
+<button class="flex-1 flex items-center justify-center gap-xs py-sm border border-outline-variant rounded-lg font-label-md hover:bg-error-container transition-all active:scale-95" onclick="toggleAttendance(this, 'absent')">
+<span class="material-symbols-outlined text-[20px]">cancel</span> Absent
+                    </button>
+</div>
+</div>
+<!-- Repeated components would go here in a React environment -->
+<!-- The Script below handles the mock population for this demo -->
+</section>
+</main>
+<!-- Section: Sticky Save Footer -->
+<footer class="fixed bottom-0 md:bottom-0 left-0 right-0 bg-surface border-t border-outline-variant px-gutter py-lg z-40 pb-safe md:pb-lg">
+<div class="max-w-container-max mx-auto flex flex-col sm:flex-row items-center justify-between gap-md">
+<div class="hidden sm:flex items-center gap-md">
+<span class="relative flex h-3 w-3">
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
+<span class="relative inline-flex rounded-full h-3 w-3 bg-primary"></span>
+</span>
+<p class="font-body-md text-body-md text-on-surface-variant italic">Live syncing enabled</p>
+</div>
+<button class="w-full sm:w-auto px-xl py-lg bg-primary-container text-on-primary-container font-headline-md rounded-xl flex items-center justify-center gap-md hover:brightness-110 active:scale-[0.98] transition-all shadow-xl">
+<span class="material-symbols-outlined">save</span>
+                Save Attendance Log
+            </button>
+</div>
+</footer>
+<!-- Section: Bottom Navigation (Mobile Only) -->
+<nav class="md:hidden fixed bottom-0 left-0 right-0 bg-surface border-t border-outline-variant h-16 flex items-center justify-around z-50 pb-safe">
+<button class="flex flex-col items-center gap-xs text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined">group</span>
+<span class="font-label-sm text-label-sm">Users</span>
+</button>
+<button class="flex flex-col items-center gap-xs text-primary font-bold">
+<span class="material-symbols-outlined filled-icon">how_to_reg</span>
+<span class="font-label-sm text-label-sm">Mark</span>
+</button>
+<button class="flex flex-col items-center gap-xs text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined">assessment</span>
+<span class="font-label-sm text-label-sm">Reports</span>
+</button>
+<button class="flex flex-col items-center gap-xs text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined">person</span>
+<span class="font-label-sm text-label-sm">Profile</span>
+</button>
+</nav>
+<!-- UI State & Interaction Scripts -->
+<script>
+        const employees = [
+            { id: "EMP-001", name: "Alex Rivera", role: "Product Designer", dept: "Creative" },
+            { id: "EMP-002", name: "Sarah Chen", role: "Senior Engineer", dept: "Technology" },
+            { id: "EMP-003", name: "Marcus Thorne", role: "Project Manager", dept: "Operations" },
+            { id: "EMP-004", name: "Elena Rodriguez", role: "HR Lead", dept: "People" },
+            { id: "EMP-005", name: "Jordan Smith", role: "QA Analyst", dept: "Technology" },
+            { id: "EMP-006", name: "Priya Patel", role: "Marketing Specialist", dept: "Growth" },
+            { id: "EMP-007", name: "David Kim", role: "DevOps Engineer", dept: "Technology" },
+            { id: "EMP-008", name: "Sophie Martin", role: "Content Strategist", dept: "Creative" },
+            { id: "EMP-009", name: "James Wilson", role: "Financial Controller", dept: "Finance" }
+        ];
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const listContainer = document.getElementById('attendance-list');
+            listContainer.innerHTML = ''; // Clear hardcoded placeholder
+
+            employees.forEach(emp => {
+                const card = createEmployeeCard(emp);
+                listContainer.appendChild(card);
+            });
+
+            // Set dynamic date
+            const dateStr = new Date().toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+            document.getElementById('current-date').innerText = dateStr;
+        });
+
+        function createEmployeeCard(emp) {
+            const div = document.createElement('div');
+            div.className = "bg-surface-container-lowest border border-outline-variant rounded-xl p-md flex flex-col gap-md hover:shadow-lg transition-all group";
+            div.innerHTML = `
+                <div class="flex items-start justify-between">
+                    <div class="flex items-center gap-md">
+                        <div class="w-12 h-12 rounded-full overflow-hidden border border-outline-variant bg-surface-container-high">
+                            <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-4.0.3&auto=format&fit=crop&w=120&q=80" alt="${emp.name}" class="w-full h-full object-cover">
+                        </div>
+                        <div>
+                            <p class="font-label-md text-label-md text-on-background font-bold">${emp.name}</p>
+                            <p class="font-label-sm text-label-sm text-on-surface-variant">${emp.id}</p>
+                        </div>
+                    </div>
+                    <span class="px-sm py-1 bg-surface-container-high text-on-surface-variant font-label-sm text-[10px] rounded uppercase font-bold tracking-wider">${emp.dept}</span>
+                </div>
+                <div class="flex gap-sm">
+                    <button onclick="toggleAttendance(this, 'present')" class="flex-1 flex items-center justify-center gap-xs py-sm border border-outline-variant rounded-lg font-label-md hover:bg-primary-fixed transition-all active:scale-95">
+                        <span class="material-symbols-outlined text-[20px]">check_circle</span> Present
+                    </button>
+                    <button onclick="toggleAttendance(this, 'absent')" class="flex-1 flex items-center justify-center gap-xs py-sm border border-outline-variant rounded-lg font-label-md hover:bg-error-container transition-all active:scale-95">
+                        <span class="material-symbols-outlined text-[20px]">cancel</span> Absent
+                    </button>
+                </div>
+            `;
+            return div;
+        }
+
+        window.toggleAttendance = (btn, status) => {
+            const card = btn.closest('.group');
+            const buttons = card.querySelectorAll('button');
+            
+            // Reset buttons
+            buttons.forEach(b => {
+                b.className = "flex-1 flex items-center justify-center gap-xs py-sm border border-outline-variant rounded-lg font-label-md transition-all active:scale-95";
+            });
+
+            if (status === 'present') {
+                btn.className = "flex-1 flex items-center justify-center gap-xs py-sm border border-primary bg-primary text-on-primary rounded-lg font-label-md transition-all scale-[1.02]";
+                card.classList.add('border-primary/50', 'bg-primary/5');
+            } else {
+                btn.className = "flex-1 flex items-center justify-center gap-xs py-sm border border-error bg-error text-on-error rounded-lg font-label-md transition-all scale-[1.02]";
+                card.classList.remove('border-primary/50', 'bg-primary/5');
+            }
+
+            // Mock update counter
+            const marked = document.querySelectorAll('.bg-primary, .bg-error').length;
+            document.getElementById('remaining-count').innerText = Math.max(0, 148 - marked);
+        };
+    </script>
+</body></html>
