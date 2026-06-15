@@ -52,6 +52,7 @@ lib/
   logger.ts               # structured logging wrapper
   db/                     # Prisma client singleton
   data/                   # data-access layer (all Prisma queries live here)
+  actions/                # "use server" form actions; validate → call data → FormState
 prisma/
   schema.prisma           # models: User, AttendanceRecord
 design/                   # Stitch design mockups (reference only, never imported)
@@ -114,6 +115,7 @@ interface ReportRequest {
 | 2026-06-05 | Use `app/[lang]` + dictionaries for i18n | Matches bundled Next 16 i18n guide; no heavy lib needed. |
 | 2026-06-05 | Locale detection in `proxy.ts` | Next 16 renamed `middleware` → `proxy`. |
 | 2026-06-05 | Supabase (Postgres) + Prisma | Hosted Postgres + typed ORM; queries isolated in `lib/data`. |
+| 2026-06-15 | Server actions in `lib/actions` return a `FormState` discriminated union | Drop-in for `useActionState`; zod validation maps to per-field errors; pages stay thin. |
 
 ## 9. Open questions
 

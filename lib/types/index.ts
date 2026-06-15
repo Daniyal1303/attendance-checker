@@ -27,3 +27,15 @@ export type AttendanceReport = {
   to: string;
   reports: UserReport[];
 };
+
+/**
+ * Discriminated result returned by server actions. Designed for use with
+ * React's `useActionState`: `idle` is the initial state, `success` carries the
+ * action payload, and `error` carries a message plus optional per-field errors.
+ */
+export type FormState<T = undefined> =
+  | { status: "idle" }
+  | { status: "success"; data: T }
+  | { status: "error"; message: string; fieldErrors?: Record<string, string[]> };
+
+export const idleState: FormState<never> = { status: "idle" };
