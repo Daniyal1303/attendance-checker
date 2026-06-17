@@ -1,57 +1,54 @@
 import "server-only";
 import { prisma } from "@/lib/db";
 import { Prisma } from "@/lib/generated/prisma/client";
+import {
+  resolvePagination,
+  type PageParams,
+  type Paginated,
+} from "@/lib/pagination";
 import type { User } from "@/lib/types";
 import type { RegisterUserInput } from "@/lib/validations";
 
 /** Number of users shown per page in the users list. */
 export const USERS_PAGE_SIZE = 5;
 
-export type ListUsersParams = {
-  search?: string;
-  page?: number;
-  pageSize?: number;
-};
-
-export type PagedUsers = {
-  users: User[];
-  total: number;
-  page: number;
-  pageSize: number;
-  totalPages: number;
-};
-
 /**
- * Lists users newest-first with optional case-insensitive search across name,
- * email, and phone, paginated. `page` is 1-based and clamped to a valid range.
+ * Builds a case-insensitive Prisma filter matching a search term against a
+ * user's name, email, or phone. Returns an empty filter for a blank term.
  */
-export async function listUsers(params: ListUsersParams = {}): Promise<PagedUsers> {
-  const pageSize = params.pageSize ?? USERS_PAGE_SIZE;
-  const search = params.search?.trim();
+export function userSearchWhere(search?: string): Prisma.UserWhereInput {
+  const term = search?.trim();
+  if (!term) return {};
+  return {
+    OR: [
+      { firstName: { contains: term, mode: "insensitive" } },
+      { lastName: { contains: term, mode: "insensitive" } },
+      { email: { contains: term, mode: "insensitive" } },
+      { phone: { contains: term, mode: "insensitive" } },
+    ],
+  };
+}
 
-  const where: Prisma.UserWhereInput = search
-    ? {
-      OR: [
-        { firstName: { contains: search, mode: "insensitive" } },
-        { lastName: { contains: search, mode: "insensitive" } },
-        { email: { contains: search, mode: "insensitive" } },
-        { phone: { contains: search, mode: "insensitive" } },
-      ],
-    }
-    : {};
+/** Lists users newest-first, paginated, with optional search. */
+export async function listUsers(params: PageParams = {}): Promise<Paginated<User>> {
+  const pageSize = params.pageSize ?? USERS_PAGE_SIZE;
+  const where = userSearchWhere(params.search);
 
   const total = await prisma.user.count({ where });
-  const totalPages = Math.max(1, Math.ceil(total / pageSize));
-  const page = Math.min(Math.max(1, params.page ?? 1), totalPages);
+  const { page, totalPages, skip, take } = resolvePagination(
+    total,
+    params.page,
+    pageSize,
+  );
 
-  const users = await prisma.user.findMany({
+  const items = await prisma.user.findMany({
     where,
     orderBy: { createdAt: "desc" },
-    skip: (page - 1) * pageSize,
-    take: pageSize,
+    skip,
+    take,
   });
 
-  return { users, total, page, pageSize, totalPages };
+  return { items, total, page, pageSize, totalPages };
 }
 
 /** Returns every user newest-first; for selectors that need the full list. */

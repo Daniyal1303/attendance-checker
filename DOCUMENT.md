@@ -26,7 +26,7 @@ is internationalized: **English (en)** and **Urdu (ur)**.
 | 4 | Report — all users | Attendance for all users over a date range. | ✅ Done |
 | 5 | Share report | Export/share the generated report. | ✅ Done |
 | 6 | i18n (en/ur) | Full app translation; Urdu is RTL. | ✅ Done |
-| 7 | Users list — search & pagination | Server-side search (name/email/phone) and paginated user list via `q`/`page` query params. | ✅ Done |
+| 7 | List search & pagination | Server-side search (name/email/phone) + pagination via `q`/`page` query params, on the users list and the attendance board. Shared `SearchInput`/`Pagination` components and `lib/pagination` + `lib/search-params` helpers. | ✅ Done |
 
 ## 3. Architecture / Folder structure
 
@@ -43,6 +43,7 @@ app/
 proxy.ts                  # locale redirect + Supabase session refresh + route guard
 components/
   ui/                     # radix-based primitives
+  shared/                 # reusable, route-agnostic widgets (SearchInput, Pagination)
   features/{users,attendance,reports}/
 lib/
   i18n/
@@ -52,6 +53,10 @@ lib/
   supabase/               # auth clients: server.ts, client.ts, config.ts (env + username→email)
   types/                  # shared domain types
   validations/            # zod schemas (single source of types + runtime validation)
+  pagination.ts           # Paginated<T>, PageParams, resolvePagination (shared list helpers)
+  search-params.ts        # parse q/page from Next searchParams
+  format.ts               # locale-aware formatters
+  reports.ts              # report CSV/share/status helpers
   logger.ts               # structured logging wrapper
   db/                     # Prisma client singleton (pg driver adapter)
   data/                   # data-access layer (all Prisma queries live here)

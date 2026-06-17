@@ -1,10 +1,7 @@
 "use client";
 import { useState, useTransition } from "react";
-import { useRouter, usePathname } from "next/navigation";
 import { Check, Clock, X } from "lucide-react";
 import { Card, CardBody } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { markAttendanceAction } from "@/lib/actions/attendance";
 import type { DailyAttendance } from "@/lib/data/attendance";
 import type { Dictionary } from "@/lib/i18n/dictionaries";
@@ -15,6 +12,7 @@ type AttendanceBoardProps = {
   date: string;
   rows: DailyAttendance[];
   dict: Dictionary["attendance"];
+  emptyMessage: string;
 };
 
 const options: {
@@ -32,19 +30,13 @@ function initials(firstName: string, lastName: string): string {
   return `${firstName.charAt(0)}${lastName.charAt(0)}`.toUpperCase();
 }
 
-/** Date picker plus a per-user present/absent/late selector wired to {@link markAttendanceAction}. */
-export function AttendanceBoard({ date, rows, dict }: AttendanceBoardProps) {
-  const router = useRouter();
-  const pathname = usePathname();
+/** Per-user present/absent/late selector wired to {@link markAttendanceAction}. */
+export function AttendanceBoard({ date, rows, dict, emptyMessage }: AttendanceBoardProps) {
   const [pending, startTransition] = useTransition();
   const [statuses, setStatuses] = useState<Record<string, AttendanceStatus | null>>(
     () => Object.fromEntries(rows.map((r) => [r.id, r.status])),
   );
   const [savingId, setSavingId] = useState<string | null>(null);
-
-  const changeDate = (value: string) => {
-    router.replace(`${pathname}?date=${value}`);
-  };
 
   const mark = (userId: string, status: AttendanceStatus) => {
     setSavingId(userId);
@@ -61,75 +53,62 @@ export function AttendanceBoard({ date, rows, dict }: AttendanceBoardProps) {
     });
   };
 
-  return (
-    <div className="space-y-5">
+  if (rows.length === 0) {
+    return (
       <Card>
-        <CardBody className="flex flex-col gap-1.5">
-          <Label htmlFor="date">{dict.selectDate}</Label>
-          <Input
-            id="date"
-            type="date"
-            value={date}
-            onChange={(e) => changeDate(e.target.value)}
-            className="sm:w-56"
-          />
+        <CardBody>
+          <p className="py-8 text-center text-sm text-slate-500">{emptyMessage}</p>
         </CardBody>
       </Card>
+    );
+  }
 
-      {rows.length === 0 ? (
-        <Card>
-          <CardBody>
-            <p className="py-8 text-center text-sm text-slate-500">{dict.noUsers}</p>
-          </CardBody>
-        </Card>
-      ) : (
-        <ul className="space-y-3">
-          {rows.map((row) => {
-            const current = statuses[row.id] ?? null;
-            const isSaving = pending && savingId === row.id;
-            return (
-              <li key={row.id}>
-                <Card>
-                  <CardBody className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-                    <div className="flex items-center gap-3">
-                      <span className="flex h-10 w-10 flex-none items-center justify-center rounded-full bg-blue-50 text-sm font-semibold text-blue-700">
-                        {initials(row.firstName, row.lastName)}
-                      </span>
-                      <p className="text-sm font-semibold text-slate-900">
-                        {row.firstName} {row.lastName}
-                      </p>
-                    </div>
-                    <div
+  return (
+    <ul className="space-y-3">
+      {rows.map((row) => {
+        const current = statuses[row.id] ?? null;
+        const isSaving = pending && savingId === row.id;
+        return (
+          <li key={row.id}>
+            <Card>
+              <CardBody className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+                <div className="flex items-center gap-3">
+                  <span className="flex h-10 w-10 flex-none items-center justify-center rounded-full bg-blue-50 text-sm font-semibold text-blue-700">
+                    {initials(row.firstName, row.lastName)}
+                  </span>
+                  <p className="text-sm font-semibold text-slate-900">
+                    {row.firstName} {row.lastName}
+                  </p>
+                </div>
+                <div
+                  className={cn(
+                    "grid grid-cols-3 gap-2 sm:flex",
+                    isSaving && "pointer-events-none opacity-60",
+                  )}
+                >
+                  {options.map(({ status, key, Icon, active }) => (
+                    <button
+                      key={status}
+                      type="button"
+                      onClick={() => mark(row.id, status)}
+                      aria-pressed={current === status}
                       className={cn(
-                        "grid grid-cols-3 gap-2 sm:flex",
-                        isSaving && "pointer-events-none opacity-60",
+                        "flex items-center justify-center gap-1.5 rounded-lg border px-3 py-2 text-sm font-medium transition-colors",
+                        current === status
+                          ? active
+                          : "border-slate-200 text-slate-600 hover:bg-slate-50",
                       )}
                     >
-                      {options.map(({ status, key, Icon, active }) => (
-                        <button
-                          key={status}
-                          type="button"
-                          onClick={() => mark(row.id, status)}
-                          aria-pressed={current === status}
-                          className={cn(
-                            "flex items-center justify-center gap-1.5 rounded-lg border px-3 py-2 text-sm font-medium transition-colors",
-                            current === status
-                              ? active
-                              : "border-slate-200 text-slate-600 hover:bg-slate-50",
-                          )}
-                        >
-                          <Icon className="h-4 w-4" />
-                          {dict[key]}
-                        </button>
-                      ))}
-                    </div>
-                  </CardBody>
-                </Card>
-              </li>
-            );
-          })}
-        </ul>
-      )}
-    </div>
+                      <Icon className="h-4 w-4" />
+                      {dict[key]}
+                    </button>
+                  ))}
+                </div>
+              </CardBody>
+            </Card>
+          </li>
+        );
+      })}
+    </ul>
   );
 }

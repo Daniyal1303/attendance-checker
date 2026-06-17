@@ -45,7 +45,6 @@
     "noResults": "No users match your search.",
     "previous": "Previous",
     "next": "Next",
-    "pageInfo": "Page {page} of {totalPages}",
     "edit": "Edit",
     "delete": "Delete",
     "editUser": "Edit user",
@@ -61,7 +60,11 @@
     "absent": "Absent",
     "late": "Late",
     "marked": "Attendance saved",
-    "noUsers": "Register users before marking attendance."
+    "noUsers": "Register users before marking attendance.",
+    "searchPlaceholder": "Search users by name, email, or phone",
+    "noResults": "No users match your search.",
+    "previous": "Previous",
+    "next": "Next"
   },
   "reports": {
     "title": "Reports",

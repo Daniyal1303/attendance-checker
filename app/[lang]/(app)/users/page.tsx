@@ -1,11 +1,12 @@
 import { Mail, Phone, Users as UsersIcon } from "lucide-react";
 import { RegisterUserForm } from "@/components/features/users/register-user-form";
 import { UserRowActions } from "@/components/features/users/user-row-actions";
-import { UsersPagination } from "@/components/features/users/users-pagination";
-import { UsersSearch } from "@/components/features/users/users-search";
+import { Pagination } from "@/components/shared/pagination";
+import { SearchInput } from "@/components/shared/search-input";
 import { Card, CardBody, CardHeader } from "@/components/ui/card";
 import { listUsers } from "@/lib/data/users";
 import { getDictionary } from "@/lib/i18n/dictionaries";
+import { parsePage, parseSearch } from "@/lib/search-params";
 import type { Locale } from "@/lib/i18n/config";
 
 function initials(firstName: string, lastName: string): string {
@@ -16,10 +17,6 @@ function formatDate(date: Date, lang: Locale): string {
   return new Intl.DateTimeFormat(lang, { dateStyle: "medium" }).format(date);
 }
 
-function firstParam(value: string | string[] | undefined): string {
-  return Array.isArray(value) ? (value[0] ?? "") : (value ?? "");
-}
-
 export default async function UsersPage({
   params,
   searchParams,
@@ -27,13 +24,12 @@ export default async function UsersPage({
   const { lang } = await params;
   const sp = await searchParams;
 
-  const search = firstParam(sp.q).trim();
-  const requestedPage = Number.parseInt(firstParam(sp.page), 10);
+  const search = parseSearch(sp.q);
 
   const dict = await getDictionary(lang as Locale);
-  const { users, total, page, totalPages } = await listUsers({
+  const { items: users, total, page, totalPages } = await listUsers({
     search,
-    page: Number.isNaN(requestedPage) ? 1 : requestedPage,
+    page: parsePage(sp.page),
   });
 
   return (
@@ -57,7 +53,7 @@ export default async function UsersPage({
           </CardHeader>
           <CardBody className="space-y-4 p-0 pt-4">
             <div className="px-6">
-              <UsersSearch placeholder={dict.users.searchPlaceholder} />
+              <SearchInput placeholder={dict.users.searchPlaceholder} />
             </div>
 
             {users.length === 0 ? (
@@ -110,13 +106,12 @@ export default async function UsersPage({
             )}
 
             {totalPages > 1 && (
-              <UsersPagination
+              <Pagination
                 page={page}
                 totalPages={totalPages}
                 labels={{
                   previous: dict.users.previous,
                   next: dict.users.next,
-                  pageInfo: dict.users.pageInfo,
                 }}
               />
             )}
