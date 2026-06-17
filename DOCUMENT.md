@@ -20,11 +20,13 @@ is internationalized: **English (en)** and **Urdu (ur)**.
 | # | Feature | Description | Status |
 |---|---------|-------------|--------|
 | 1 | Register user | Admin creates a user (name, etc.). | ✅ Done |
+| 1a | Edit / delete user | Admin edits a user's details or deletes them (attendance cascades). | ✅ Done |
 | 2 | Mark attendance | Admin marks a user present/absent/late for a date. | ✅ Done |
 | 3 | Report — single user | Attendance for one user over a date range. | ✅ Done |
 | 4 | Report — all users | Attendance for all users over a date range. | ✅ Done |
 | 5 | Share report | Export/share the generated report. | ✅ Done |
 | 6 | i18n (en/ur) | Full app translation; Urdu is RTL. | ✅ Done |
+| 7 | Users list — search & pagination | Server-side search (name/email/phone) and paginated user list via `q`/`page` query params. | ✅ Done |
 
 ## 3. Architecture / Folder structure
 

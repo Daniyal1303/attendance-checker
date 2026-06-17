@@ -8,41 +8,10 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select } from "@/components/ui/select";
 import { generateReportAction } from "@/lib/actions/reports";
-import type { Locale } from "@/lib/i18n/config";
-import type { Dictionary } from "@/lib/i18n/dictionaries";
-import {
-  idleState,
-  type AttendanceReport,
-  type AttendanceStatus,
-  type FormState,
-} from "@/lib/types";
-
-type ReportUser = { id: string; firstName: string; lastName: string };
-
-type ReportBuilderProps = {
-  lang: Locale;
-  users: ReportUser[];
-  dict: Dictionary["reports"];
-  common: Pick<Dictionary["common"], "all" | "from" | "to" | "date" | "status">;
-};
-
-const statusTone: Record<AttendanceStatus, "success" | "danger" | "warning"> = {
-  PRESENT: "success",
-  ABSENT: "danger",
-  LATE: "warning",
-};
-
-function statusLabel(status: AttendanceStatus, dict: Dictionary["reports"]): string {
-  return status === "PRESENT" ? dict.present : status === "ABSENT" ? dict.absent : dict.late;
-}
-
-function buildCsv(report: AttendanceReport): string {
-  const header = ["User", "Date", "Status"];
-  const rows = report.reports.flatMap((r) =>
-    r.entries.map((e) => [`${r.user.firstName} ${r.user.lastName}`, e.date, e.status]),
-  );
-  return [header, ...rows].map((cols) => cols.join(",")).join("\n");
-}
+import { formatDate } from "@/lib/format";
+import { exportReportCsv, shareReport, statusLabel, statusTone } from "@/lib/reports";
+import { idleState, type AttendanceReport, type FormState } from "@/lib/types";
+import type { ReportBuilderProps } from "./types";
 
 export function ReportBuilder({ lang, users, dict, common }: ReportBuilderProps) {
   const [state, action, pending] = useActionState<FormState<AttendanceReport>, FormData>(
@@ -51,35 +20,6 @@ export function ReportBuilder({ lang, users, dict, common }: ReportBuilderProps)
   );
   const report = state.status === "success" ? state.data : null;
   const fieldErrors = state.status === "error" ? state.fieldErrors : undefined;
-  const formatDate = (iso: string) =>
-    new Intl.DateTimeFormat(lang, { dateStyle: "medium" }).format(new Date(iso));
-
-  const handleExport = () => {
-    if (!report) return;
-    const blob = new Blob([buildCsv(report)], { type: "text/csv;charset=utf-8" });
-    const url = URL.createObjectURL(blob);
-    const link = document.createElement("a");
-    link.href = url;
-    link.download = `attendance-${report.from}_${report.to}.csv`;
-    link.click();
-    URL.revokeObjectURL(url);
-  };
-
-  const handleShare = async () => {
-    if (!report) return;
-    const text = report.reports
-      .map(
-        (r) =>
-          `${r.user.firstName} ${r.user.lastName}: ${dict.present} ${r.totals.PRESENT}, ${dict.absent} ${r.totals.ABSENT}, ${dict.late} ${r.totals.LATE}`,
-      )
-      .join("\n");
-    const payload = `${dict.title} (${report.from} → ${report.to})\n${text}`;
-    if (navigator.share) {
-      await navigator.share({ title: dict.title, text: payload });
-    } else {
-      await navigator.clipboard.writeText(payload);
-    }
-  };
 
   return (
     <div className="space-y-6">
@@ -148,11 +88,21 @@ export function ReportBuilder({ lang, users, dict, common }: ReportBuilderProps)
           <CardHeader>
             <h2 className="text-base font-semibold text-slate-900">{dict.summary}</h2>
             <div className="flex items-center gap-2">
-              <Button type="button" variant="secondary" size="sm" onClick={handleShare}>
+              <Button
+                type="button"
+                variant="secondary"
+                size="sm"
+                onClick={() => shareReport(report, dict)}
+              >
                 <Share2 className="h-4 w-4" />
                 {dict.share}
               </Button>
-              <Button type="button" variant="secondary" size="sm" onClick={handleExport}>
+              <Button
+                type="button"
+                variant="secondary"
+                size="sm"
+                onClick={() => exportReportCsv(report)}
+              >
                 <Download className="h-4 w-4" />
                 {dict.export}
               </Button>
@@ -198,7 +148,7 @@ export function ReportBuilder({ lang, users, dict, common }: ReportBuilderProps)
                             {r.entries.map((e) => (
                               <tr key={e.date}>
                                 <td className="px-3 py-2 text-slate-700">
-                                  {formatDate(e.date)}
+                                  {formatDate(e.date, lang)}
                                 </td>
                                 <td className="px-3 py-2 text-end">
                                   <Badge tone={statusTone[e.status]}>

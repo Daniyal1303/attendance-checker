@@ -1,5 +1,8 @@
 import { Mail, Phone, Users as UsersIcon } from "lucide-react";
 import { RegisterUserForm } from "@/components/features/users/register-user-form";
+import { UserRowActions } from "@/components/features/users/user-row-actions";
+import { UsersPagination } from "@/components/features/users/users-pagination";
+import { UsersSearch } from "@/components/features/users/users-search";
 import { Card, CardBody, CardHeader } from "@/components/ui/card";
 import { listUsers } from "@/lib/data/users";
 import { getDictionary } from "@/lib/i18n/dictionaries";
@@ -13,15 +16,32 @@ function formatDate(date: Date, lang: Locale): string {
   return new Intl.DateTimeFormat(lang, { dateStyle: "medium" }).format(date);
 }
 
-export default async function UsersPage({ params }: PageProps<"/[lang]/users">) {
+function firstParam(value: string | string[] | undefined): string {
+  return Array.isArray(value) ? (value[0] ?? "") : (value ?? "");
+}
+
+export default async function UsersPage({
+  params,
+  searchParams,
+}: PageProps<"/[lang]/users">) {
   const { lang } = await params;
+  const sp = await searchParams;
+
+  const search = firstParam(sp.q).trim();
+  const requestedPage = Number.parseInt(firstParam(sp.page), 10);
+
   const dict = await getDictionary(lang as Locale);
-  const users = await listUsers();
+  const { users, total, page, totalPages } = await listUsers({
+    search,
+    page: Number.isNaN(requestedPage) ? 1 : requestedPage,
+  });
 
   return (
     <div className="space-y-6">
       <header>
-        <h1 className="text-2xl font-bold text-slate-900">{dict.users.title}</h1>
+        <h1 className="text-2xl font-bold text-slate-900">
+          {dict.users.title}
+        </h1>
       </header>
 
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.2fr)]">
@@ -33,17 +53,24 @@ export default async function UsersPage({ params }: PageProps<"/[lang]/users">) 
               <UsersIcon className="h-5 w-5 text-blue-600" />
               {dict.users.title}
             </h2>
-            <span className="text-sm font-medium text-slate-500">{users.length}</span>
+            <span className="text-sm font-medium text-slate-500">{total}</span>
           </CardHeader>
-          <CardBody className="p-0">
+          <CardBody className="space-y-4 p-0 pt-4">
+            <div className="px-6">
+              <UsersSearch placeholder={dict.users.searchPlaceholder} />
+            </div>
+
             {users.length === 0 ? (
               <p className="px-6 py-10 text-center text-sm text-slate-500">
-                {dict.users.empty}
+                {search ? dict.users.noResults : dict.users.empty}
               </p>
             ) : (
               <ul className="divide-y divide-slate-100">
                 {users.map((user) => (
-                  <li key={user.id} className="flex items-center gap-3 px-6 py-3.5">
+                  <li
+                    key={user.id}
+                    className="flex items-center gap-3 px-6 py-3.5"
+                  >
                     <span className="flex h-10 w-10 flex-none items-center justify-center rounded-full bg-blue-50 text-sm font-semibold text-blue-700">
                       {initials(user.firstName, user.lastName)}
                     </span>
@@ -72,9 +99,26 @@ export default async function UsersPage({ params }: PageProps<"/[lang]/users">) 
                         {formatDate(user.createdAt, lang as Locale)}
                       </p>
                     </div>
+                    <UserRowActions
+                      user={user}
+                      dict={dict.users}
+                      common={dict.common}
+                    />
                   </li>
                 ))}
               </ul>
+            )}
+
+            {totalPages > 1 && (
+              <UsersPagination
+                page={page}
+                totalPages={totalPages}
+                labels={{
+                  previous: dict.users.previous,
+                  next: dict.users.next,
+                  pageInfo: dict.users.pageInfo,
+                }}
+              />
             )}
           </CardBody>
         </Card>

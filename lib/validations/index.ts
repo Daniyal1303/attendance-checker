@@ -20,6 +20,14 @@ export const registerUserSchema = z.object({
   ),
 });
 
+export const updateUserSchema = registerUserSchema.extend({
+  id: z.string().min(1),
+});
+
+export const deleteUserSchema = z.object({
+  id: z.string().min(1),
+});
+
 export const markAttendanceSchema = z.object({
   userId: z.string().min(1),
   date: z.iso.date(),
@@ -44,5 +52,7 @@ export const reportRequestSchema = z
 
 export type LoginInput = z.infer<typeof loginSchema>;
 export type RegisterUserInput = z.infer<typeof registerUserSchema>;
+export type UpdateUserInput = z.infer<typeof updateUserSchema>;
+export type DeleteUserInput = z.infer<typeof deleteUserSchema>;
 export type MarkAttendanceInput = z.infer<typeof markAttendanceSchema>;
 export type ReportRequest = z.infer<typeof reportRequestSchema>;

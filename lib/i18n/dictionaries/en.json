@@ -40,7 +40,19 @@
     "addUser": "Add user",
     "registeredOn": "Registered on",
     "empty": "No users yet. Register your first user.",
-    "created": "User registered"
+    "created": "User registered",
+    "searchPlaceholder": "Search by name, email, or phone",
+    "noResults": "No users match your search.",
+    "previous": "Previous",
+    "next": "Next",
+    "pageInfo": "Page {page} of {totalPages}",
+    "edit": "Edit",
+    "delete": "Delete",
+    "editUser": "Edit user",
+    "updated": "User updated",
+    "deleteUser": "Delete user",
+    "deleteWarning": "This permanently deletes {name} and all their attendance records. This cannot be undone.",
+    "deleted": "User deleted"
   },
   "attendance": {
     "title": "Mark attendance",
