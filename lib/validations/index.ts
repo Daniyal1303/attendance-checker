@@ -5,6 +5,11 @@ const emptyToUndefined = (value: unknown) =>
 
 export const attendanceStatusSchema = z.enum(["PRESENT", "ABSENT", "LATE"]);
 
+export const loginSchema = z.object({
+  username: z.string().trim().min(1).max(64),
+  password: z.string().min(1),
+});
+
 export const registerUserSchema = z.object({
   firstName: z.string().trim().min(1).max(80),
   lastName: z.string().trim().min(1).max(80),
@@ -37,6 +42,7 @@ export const reportRequestSchema = z
     path: ["to"],
   });
 
+export type LoginInput = z.infer<typeof loginSchema>;
 export type RegisterUserInput = z.infer<typeof registerUserSchema>;
 export type MarkAttendanceInput = z.infer<typeof markAttendanceSchema>;
 export type ReportRequest = z.infer<typeof reportRequestSchema>;

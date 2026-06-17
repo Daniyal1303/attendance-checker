@@ -23,7 +23,7 @@
   "login": {
     "title": "Welcome back",
     "subtitle": "Sign in to manage attendance",
-    "email": "Email",
+    "username": "Username",
     "password": "Password",
     "rememberMe": "Remember me",
     "signIn": "Sign in",
